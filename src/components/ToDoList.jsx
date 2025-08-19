@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useTodostore } from "../store/todostore";
 import { useFavoriteStore } from "../store/favoriteStore";
+// import BackButton from "./BackButton";
 
 const ToDoList = () => {
   const tasks = useTodostore((state) => state.tasks);
@@ -12,7 +13,6 @@ const ToDoList = () => {
 
   const [inputValue, setInputValue] = useState("");
 
-  // همگام‌سازی favoriteBooks با تسک‌ها در mount
   useEffect(() => {
     let favs = JSON.parse(localStorage.getItem("favoriteBooks") || "[]");
     favs.forEach((name) => {
@@ -20,7 +20,6 @@ const ToDoList = () => {
         addTask(`📚 ${name}`);
       }
     });
-    // eslint-disable-next-line
   }, []);
 
   const handleAddTask = () => {
@@ -33,12 +32,11 @@ const ToDoList = () => {
   const handleDeleteTask = (id) => {
     const task = tasks.find((t) => t.id === id);
     if (task && task.text.startsWith("📚")) {
-      // حذف نام کتاب از localStorage
       let favs = JSON.parse(localStorage.getItem("favoriteBooks") || "[]");
       const bookName = task.text.replace("📚 ", "");
       favs = favs.filter((name) => name !== bookName);
       localStorage.setItem("favoriteBooks", JSON.stringify(favs));
-      // حذف از علاقه‌مندی‌ها
+
       const favorites = useFavoriteStore.getState().favorites;
       const book = favorites.find((b) => b.name === bookName);
       if (book) {
@@ -50,9 +48,9 @@ const ToDoList = () => {
 
   const handleDeleteAllTasks = () => {
     deleteAllTasks();
-    // پاک کردن همه علاقه‌مندی‌ها از localStorage
+
     localStorage.removeItem("favoriteBooks");
-    // پاک کردن همه علاقه‌مندی‌ها از استور
+
     const favorites = useFavoriteStore.getState().favorites;
     favorites.forEach((book) => {
       removeFavorite(book.number);
@@ -67,6 +65,7 @@ const ToDoList = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-green-100 to-green-200 p-6">
+      {/* <BackButton/> */}
       <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-6">
         <header className="text-xl font-bold text-center text-green-700 mb-4">
           کتابی که باهاش حال میکنی رو اضافه کن

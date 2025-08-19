@@ -1,4 +1,3 @@
-import { Book } from "lucide-react";
 import { create } from "zustand";
 
 const useBookStore = create((set) => ({

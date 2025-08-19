@@ -5,7 +5,7 @@ export default function BookList() {
   const books = getBooks();
 
   return (
-    <div className="mb-12 flex gap-x-6 item-center flex-wrap border-radius: var(--radius-sm)">
+    <div className="container flex gap-1 flex-wrap justify-center">
       {books.map((book, index) => (
         <BookCard key={index} book={book} />
       ))}

@@ -25,22 +25,26 @@ export default function BookCard({ book }) {
 
   return (
     <Link to={`/books/${book.number}`} className="block">
-      <div className="mx-10 shadow-2xl p-4 bg-white relative mt-40 w-[270px] transition-transform hover:scale-105 hover:-translate-y-1 hover:shadow-2xl rounded-2xl">
+      <div className="mt-25 mx-3 shadow-2xl p-2 bg-white relative gap-0.5 w-[200px] h-[430px] transition-transform hover:scale-105 hover:-translate-y-1 hover:shadow-2xl rounded-2xl">
         <button
           onClick={handleToggleFavorite}
           className="absolute top-2 right-2 z-10"
         ></button>
 
-        <div className="w-full h-48 bg-cover bg-center rounded-xl mb-4">
-          <img src={book.bgImage} alt="" className="h-48 w-full rounded-lg" />
+        <div className="w-[180px] h-[265px] rounded-xl overflow-hidden mb-4 mx-auto">
+          <img
+            src={book.bgImage}
+            alt={book.name}
+            className="w-full h-full object-cover rounded-xl"
+          />
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold text-green-800 truncate">
+          <h3 className="text-lg truncate font-semibold text-green-800">
             {book.name}
           </h3>
           <p className="text-gray-600 mt-2">شماره: {book.number}</p>
-          <p className="text-sm text-green-600">
+          <p className="text-sm text-green-600 truncate w-35">
             قیمت: {book.amount.toLocaleString()} تومان
           </p>
           <hr className="my-4 border-t border-gray-300" />

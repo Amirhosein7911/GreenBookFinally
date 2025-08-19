@@ -2,12 +2,12 @@ import { NavLink, useLocation, Outlet } from "react-router-dom";
 import { getBooks } from "./data";
 import { useState, useEffect } from "react";
 import useBookStore from "../store/bookStore";
+// import BackButton from "./BackButton";
 
 const Books = () => {
   const location = useLocation();
   const books = getBooks();
   const [hoveredBook, setHoveredBook] = useState(null);
-
 
   const { filter, setFilter, clearFilter } = useBookStore();
 
@@ -18,7 +18,8 @@ const Books = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-screen font-[Arial,sans-serif] bg-[#f8faf8] mr-120 mt-1">
+    <div className="flex min-h-screen font-[Arial,sans-serif] bg-[#f8faf8] mr-120 mt-4">
+      {/* <BackButton /> */}
       <nav className="w-[300px] pt-[150px] mr-[10px] bg-white border-r border-[#e0e0e0]">
         <input
           type="text"
@@ -29,7 +30,6 @@ const Books = () => {
         />
 
         <div className="flex flex-col gap-[8px]">
-          
           {books
             .filter((book) =>
               book.name.toLowerCase().includes(filter.toLowerCase())
@@ -65,6 +65,7 @@ const Books = () => {
       </nav>
 
       <div className="flex-1 p-[20px] bg-white">
+        {/* <BackButton /> */}
         <Outlet />
       </div>
     </div>

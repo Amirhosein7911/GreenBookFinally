@@ -31,18 +31,15 @@ const BookDetails = () => {
       let favs = JSON.parse(localStorage.getItem("favoriteBooks") || "[]");
       favs = favs.filter((name) => name !== book.name);
       localStorage.setItem("favoriteBooks", JSON.stringify(favs));
-      // حذف از تسک‌ها
       const task = tasks.find((t) => t.text === `${book.name}`);
       if (task) deleteTask(task.id);
     } else {
       addFavorite(book);
-      // اضافه به localStorage
       let favs = JSON.parse(localStorage.getItem("favoriteBooks") || "[]");
       if (!favs.includes(book.name)) {
         favs.push(book.name);
         localStorage.setItem("favoriteBooks", JSON.stringify(favs));
       }
-      // اضافه به تسک‌ها (اگر قبلاً وجود ندارد)
       if (!tasks.some((t) => t.text === ` ${book.name}`)) {
         addFavoriteAsTask(book.name);
       }
@@ -50,7 +47,7 @@ const BookDetails = () => {
   };
 
   return (
-    <div className="flex flex-row gap-5 p-5">
+    <div className="mt-22 flex flex-row gap-5 p-5">
       <div className="max-w-[300px]">
         {book.bgImage && (
           <img
@@ -94,12 +91,12 @@ const BookDetails = () => {
           </div>
         )}
         <div className="mt-8 flex items-center gap-4">
-          <button
+          {/* <button
             onClick={() => window.history.back()}
-            className="px-5 py-2 bg-gray-100 text-gray-800 border border-gray-300 rounded hover:bg-gray-200 transition-colors flex items-center gap-2"
+            className="fixed top-5 left-4 z-50 px-7 py-2 bg-emerald-600 text-white font-extrabold text-lg rounded-lg shadow-md hover:bg-red-800 transition-colors flex items-center gap-2 select-none"
           >
             بازگشت
-          </button>
+          </button> */}
           <button onClick={handleFavorite} className="p-2">
             <img
               src={favorite ? heartFilled : heartOutline}
