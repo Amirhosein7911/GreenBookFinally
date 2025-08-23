@@ -1,11 +1,11 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import LoginPage from "../Login/login";
-import Books from "../Books";
-import BookList from "../BookList";
-import HomePage from "../HomePage";
-import BookDetails from "../BookDetails";
-import ToDoList from "../ToDoList";
-import Header from "../BookHeader";
+import LoginPage from "../Login/login.js";
+import Books from "../Books.js";
+import BookList from "../BookList.js";
+import HomePage from "../HomePage.js";
+import BookDetails from "../BookDetails.js";
+import ToDoList from "../ToDoList.js";
+import Header from "../BookHeader.js";
 
 const AppRoutes = () => {
   const location = useLocation();

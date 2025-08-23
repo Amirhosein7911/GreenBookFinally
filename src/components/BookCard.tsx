@@ -1,19 +1,36 @@
 import { Link } from "react-router-dom";
-import { useFavoriteStore } from "../store/favoriteStore";
-import { useTodostore } from "../store/todostore";
+import { useFavoriteStore } from "../store/favoriteStore.js";
+import { useTodostore } from "../store/todostore.js";
 
+// تاریخ امروز برای نمایش
 const today = new Date();
 const formattedDate = today.toLocaleDateString("fa-IR", {
   year: "numeric",
   month: "long",
 });
 
-export default function BookCard({ book }) {
-  const { addToFavorites, removeFromFavorites, isFavorite } =
-    useFavoriteStore();
+// تایپ برای Book
+export interface Book {
+  number: number;
+  name: string;
+  amount: string;
+  bgImage: string;
+  pdf?: string;
+}
+
+// تایپ برای props کامپوننت
+interface BookCardProps {
+  book: Book;
+}
+
+export default function BookCard({ book }: BookCardProps) {
+  // گرفتن state و actions از store
+  const addToFavorites = useFavoriteStore((state) => state.addToFavorites);
+  const removeFromFavorites = useFavoriteStore((state) => state.removeFavorite);
+  const isFavorite = useFavoriteStore((state) => state.isFavorite);
   const addFavoriteAsTask = useTodostore((state) => state.addFavoriteAsTask);
 
-  const handleToggleFavorite = (e) => {
+  const handleToggleFavorite = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (isFavorite(book.number)) {
       removeFromFavorites(book.number);
@@ -28,8 +45,10 @@ export default function BookCard({ book }) {
       <div className="mt-25 mx-3 shadow-2xl p-2 bg-white relative gap-0.5 w-[200px] h-[430px] transition-transform hover:scale-105 hover:-translate-y-1 hover:shadow-2xl rounded-2xl">
         <button
           onClick={handleToggleFavorite}
-          className="absolute top-2 right-2 z-10"
-        ></button>
+          className="absolute top-2 right-2 z-10 text-red-500 font-bold"
+        >
+          {isFavorite(book.number) ? "♥" : "♡"}
+        </button>
 
         <div className="w-[180px] h-[265px] rounded-xl overflow-hidden mb-4 mx-auto">
           <img

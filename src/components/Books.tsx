@@ -1,13 +1,13 @@
 import { NavLink, useLocation, Outlet } from "react-router-dom";
-import { getBooks } from "./data";
+import { getBooks } from "./data.js";
 import { useState, useEffect } from "react";
-import useBookStore from "../store/bookStore";
+import useBookStore from "../store/bookStore.js";
 // import BackButton from "./BackButton";
 
 const Books = () => {
   const location = useLocation();
   const books = getBooks();
-  const [hoveredBook, setHoveredBook] = useState(null);
+  const [hoveredBook, setHoveredBook] = useState<number | null>(null);
 
   const { filter, setFilter, clearFilter } = useBookStore();
 

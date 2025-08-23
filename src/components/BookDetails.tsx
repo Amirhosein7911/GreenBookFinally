@@ -1,16 +1,28 @@
+// src/components/BookDetails.tsx
+import React from "react";
 import { useParams } from "react-router-dom";
-import { getBooks } from "./data";
-import { useFavoriteStore } from "../store/favoriteStore";
-import { useTodostore } from "../store/todostore";
+import { getBooks } from "./data.js";
+import { useFavoriteStore } from "../store/favoriteStore.js";
+import { useTodostore } from "../store/todostore.js";
 import heartFilled from "./assets/heart-filled.png";
 import heartOutline from "./assets/heart-outline.png";
 
-const BookDetails = () => {
-  const { number } = useParams();
-  const books = getBooks();
-  const book = books.find((b) => b.number === parseInt(number));
+// تایپ کتاب
+type Book = {
+  number: number;
+  name: string;
+  amount: string;
+  description?: string;
+  pdf?: string;
+  bgImage?: string;
+};
 
-  const addFavorite = useFavoriteStore((state) => state.addFavorite);
+const BookDetails: React.FC = () => {
+  const { number } = useParams<{ number: string }>();
+  const books: Book[] = getBooks();
+  const book = books.find((b) => b.number === parseInt(number!));
+
+  const addFavorite = useFavoriteStore((state) => state.addToFavorites);
   const removeFavorite = useFavoriteStore((state) => state.removeFavorite);
   const favorite = useFavoriteStore((state) =>
     state.favorites.some((b) => b.number === book?.number)
@@ -28,19 +40,26 @@ const BookDetails = () => {
     if (favorite) {
       removeFavorite(book.number);
 
-      let favs = JSON.parse(localStorage.getItem("favoriteBooks") || "[]");
+      let favs: string[] = JSON.parse(
+        localStorage.getItem("favoriteBooks") || "[]"
+      );
       favs = favs.filter((name) => name !== book.name);
       localStorage.setItem("favoriteBooks", JSON.stringify(favs));
+
       const task = tasks.find((t) => t.text === `${book.name}`);
       if (task) deleteTask(task.id);
     } else {
       addFavorite(book);
-      let favs = JSON.parse(localStorage.getItem("favoriteBooks") || "[]");
+
+      let favs: string[] = JSON.parse(
+        localStorage.getItem("favoriteBooks") || "[]"
+      );
       if (!favs.includes(book.name)) {
         favs.push(book.name);
         localStorage.setItem("favoriteBooks", JSON.stringify(favs));
       }
-      if (!tasks.some((t) => t.text === ` ${book.name}`)) {
+
+      if (!tasks.some((t) => t.text === `${book.name}`)) {
         addFavoriteAsTask(book.name);
       }
     }
@@ -91,12 +110,12 @@ const BookDetails = () => {
           </div>
         )}
         <div className="mt-8 flex items-center gap-4">
-          {/* <button
+          <button
             onClick={() => window.history.back()}
             className="fixed top-5 left-4 z-50 px-7 py-2 bg-emerald-600 text-white font-extrabold text-lg rounded-lg shadow-md hover:bg-red-800 transition-colors flex items-center gap-2 select-none"
           >
             بازگشت
-          </button> */}
+          </button>
           <button onClick={handleFavorite} className="p-2">
             <img
               src={favorite ? heartFilled : heartOutline}

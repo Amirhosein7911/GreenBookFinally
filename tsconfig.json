@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "jsx": "react-jsx",
+
+    // Strict TypeScript options
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+
+    // Source maps & declaration
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    // Import/Export behavior
+    "resolveJsonModule": true,
+    "allowJs": false
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

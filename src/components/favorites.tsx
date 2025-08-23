@@ -1,7 +1,9 @@
-import useFavoriteStore from "../store/favoriteStore";
-import BookCard from "../components/BookCard";
+// src/components/Favorites.tsx
+import React from "react";
+import { useFavoriteStore } from "../store/favoriteStore.js";
+import BookCard from "./BookCard.js";
 
-export default function Favorites() {
+const Favorites: React.FC = () => {
   const favorites = useFavoriteStore((state) => state.favorites);
 
   if (favorites.length === 0) {
@@ -15,8 +17,10 @@ export default function Favorites() {
   return (
     <div className="flex flex-wrap justify-center gap-6 mt-10">
       {favorites.map((book) => (
-        <BookCard key={book.id} book={book} />
+        <BookCard key={book.number} book={book} />
       ))}
     </div>
   );
-}
+};
+
+export default Favorites;
