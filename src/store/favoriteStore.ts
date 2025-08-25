@@ -1,7 +1,5 @@
-// src/store/favoriteStore.ts
 import { create } from "zustand";
 
-// تایپ کامل برای Book که با BookCard هماهنگ باشه
 export type Book = {
   number: number;
   name: string;
@@ -9,7 +7,6 @@ export type Book = {
   bgImage: string;
 };
 
-// تایپ استیت Favorite
 interface FavoriteState {
   favorites: Book[];
   addToFavorites: (book: any) => void;
@@ -17,7 +14,6 @@ interface FavoriteState {
   isFavorite: (number: number) => boolean;
 }
 
-// ساخت store با zustand
 export const useFavoriteStore = create<FavoriteState>((set, get) => ({
   favorites: [],
   addToFavorites: (book: Book) =>
